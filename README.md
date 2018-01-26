@@ -1,7 +1,7 @@
 # example
 Spring MVC+Spring+JPA+Hibernate_Zero-XML_Java-config
 
-参考
+>参考
 - Hibernate中：cannot simultaneously fetch multiple bags的问题  
 http://blog.csdn.net/sinat_28978689/article/details/53169280
 
@@ -16,3 +16,6 @@ http://blog.csdn.net/Apologize_zhang/article/details/51273495
 
 - Spring RestController produces charset=UTF-8  
 https://stackoverflow.com/questions/39788503/spring-restcontroller-produces-charset-utf-8
+
+>TODO
+- Integrate [Apache Shiro](http://shiro.apache.org)
