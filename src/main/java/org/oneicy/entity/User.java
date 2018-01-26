@@ -4,8 +4,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "user")
 public class User implements Serializable {
 	private int id;
+	private String userCode;
 	private String userName;
 	private String password;
 	private Organization organization;
@@ -20,6 +22,16 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
+	@Basic
+	@Column(name = "user_code")
+	public String getUserCode() {
+		return this.userCode;
+	}
+	
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+	
 	@Basic
 	@Column(name = "user_name")
 	public String getUserName() {
