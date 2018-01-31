@@ -17,5 +17,8 @@ http://blog.csdn.net/Apologize_zhang/article/details/51273495
 - Spring RestController produces charset=UTF-8  
 https://stackoverflow.com/questions/39788503/spring-restcontroller-produces-charset-utf-8
 
+- IntelliJ中Java8编译错误-‘source Release 8 Requires Target Release 1.8’  
+http://zyzhang.github.io/blog/2013/06/13/intellij-java8-compile-require-target-1-8/
+
 >TODO
 - Integrate [Apache Shiro](http://shiro.apache.org)
