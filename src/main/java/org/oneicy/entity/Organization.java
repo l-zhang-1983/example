@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
+@Table(name = "organization")
 public class Organization implements Serializable {
 	private int id;
 	private String orgCode;
@@ -46,7 +47,7 @@ public class Organization implements Serializable {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "parent_code", referencedColumnName = "org_code")
+	@JoinColumn(name = "parent_org_code", referencedColumnName = "org_code")
 	public Organization getOrganization() {
 		return this.organization;
 	}

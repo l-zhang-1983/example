@@ -43,6 +43,9 @@ public class ExampleController {
 	@RequestMapping("/org/{query}")
 	public Collection<Organization> org(@PathVariable("query") String query) {
 		Collection<Organization> list = this.userService.getOrganizationList(query);
+		for (Organization organization : list) {
+			logger.error("users: {}", organization.getUsers());
+		}
 		return list;
 	}
 
