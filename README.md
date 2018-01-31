@@ -20,5 +20,11 @@ https://stackoverflow.com/questions/39788503/spring-restcontroller-produces-char
 - IntelliJ中Java8编译错误-‘source Release 8 Requires Target Release 1.8’  
 http://zyzhang.github.io/blog/2013/06/13/intellij-java8-compile-require-target-1-8/
 
+- tomee required to support ear ejb deployment  
+http://blog.csdn.net/csdn13257081409/article/details/79036807
+
+- TomEE and Intellij  
+http://tomee.apache.org/tomee-and-intellij.html
+
 >TODO
 - Integrate [Apache Shiro](http://shiro.apache.org)
