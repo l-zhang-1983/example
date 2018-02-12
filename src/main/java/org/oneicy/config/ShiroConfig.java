@@ -24,7 +24,7 @@ import java.util.Map;
 public class ShiroConfig {
 
 	@Bean(name = "shiroFilter")
-	public ShiroFilterFactoryBean shiroFilter(){
+	public ShiroFilterFactoryBean shiroFilter() {
 		ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
 		bean.setSecurityManager(defaultWebSecurityManager());
 		bean.setLoginUrl("/preLogin");
@@ -53,7 +53,7 @@ public class ShiroConfig {
 		return new JavaUuidSessionIdGenerator();
 	}
 
-	@Bean(name="defaultWebSecurityManager")
+	@Bean(name = "defaultWebSecurityManager")
 	public DefaultWebSecurityManager defaultWebSecurityManager() {
 		DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
 		manager.setRealm(userNameRealm());
@@ -63,14 +63,14 @@ public class ShiroConfig {
 	}
 
 	@Bean(name = "userNameRealm")
-	@DependsOn(value="lifecycleBeanPostProcessor")
+	@DependsOn(value = "lifecycleBeanPostProcessor")
 	public UserNameRealm userNameRealm() {
 		UserNameRealm userNameRealm = new UserNameRealm();
 		userNameRealm.setCacheManager(cacheManager());
 		return userNameRealm;
 	}
 
-	@Bean(name="sessionManager")
+	@Bean(name = "sessionManager")
 	public DefaultWebSessionManager defaultWebSessionManager() {
 		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
 		sessionManager.setCacheManager(cacheManager());
@@ -101,7 +101,7 @@ public class ShiroConfig {
 	}
 
 	@Bean
-	public MethodInvokingFactoryBean methodInvokingFactoryBean(DefaultWebSecurityManager securityManager){
+	public MethodInvokingFactoryBean methodInvokingFactoryBean(DefaultWebSecurityManager securityManager) {
 		MethodInvokingFactoryBean methodInvokingFactoryBean = new MethodInvokingFactoryBean();
 		methodInvokingFactoryBean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
 		methodInvokingFactoryBean.setArguments(securityManager);

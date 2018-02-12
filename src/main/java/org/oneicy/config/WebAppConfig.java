@@ -66,7 +66,7 @@ public class WebAppConfig {
 	private Environment env;
 
 	@Bean
-	public UrlBasedViewResolver setupViewResolver(){
+	public UrlBasedViewResolver setupViewResolver() {
 		UrlBasedViewResolver resolver = new UrlBasedViewResolver();
 		resolver.setPrefix("/WEB-INF/jsp/");
 		resolver.setSuffix(".jsp");
@@ -75,7 +75,7 @@ public class WebAppConfig {
 	}
 
 	@Bean
-	public DataSource dataSource(){
+	public DataSource dataSource() {
 		DruidDataSource dataSource = new DruidDataSource();
 		dataSource.setDriverClassName(env.getRequiredProperty(P_DB_DRIVER));
 		dataSource.setUrl(env.getRequiredProperty(P_DB_URL));
@@ -95,13 +95,13 @@ public class WebAppConfig {
 		try {
 			dataSource.setFilters(env.getRequiredProperty(P_DB_FILTERS));
 		} catch (SQLException e) {
-			LOG.error("Create DataSource filters failed.",e);
+			LOG.error("Create DataSource filters failed.", e);
 		}
 		return dataSource;
 	}
 
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
 		bean.setDataSource(dataSource());
 		bean.setPackagesToScan(env.getRequiredProperty(P_ENTITYMANAGER_PACKAGES_TO_SCAN));
@@ -113,7 +113,7 @@ public class WebAppConfig {
 		return bean;
 	}
 
-	private Properties jpaProperties(){
+	private Properties jpaProperties() {
 		Properties prop = new Properties();
 		prop.put(P_HIBERNATE_MAX_FETCH_DEPTH, env.getRequiredProperty(P_HIBERNATE_MAX_FETCH_DEPTH, Integer.class));
 		prop.put(P_HIBERNATE_JDBC_FETCH_SIZE, env.getRequiredProperty(P_HIBERNATE_JDBC_FETCH_SIZE, Integer.class));
@@ -128,26 +128,26 @@ public class WebAppConfig {
 	}
 
 	@Bean
-	public JpaTransactionManager transactionManager(){
+	public JpaTransactionManager transactionManager() {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return transactionManager;
 	}
 
 	@Bean
-	public SchedulerFactoryBean schedulerFactoryBean(){
+	public SchedulerFactoryBean schedulerFactoryBean() {
 		return new SchedulerFactoryBean();
 	}
 
 	@Bean
-	public CommonsMultipartResolver multipartResolver(){
+	public CommonsMultipartResolver multipartResolver() {
 		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
 		resolver.setMaxUploadSize(10 * 1024 * 1024);
 		return resolver;
 	}
 
 	@Bean
-	public LocalValidatorFactoryBean validator(){
+	public LocalValidatorFactoryBean validator() {
 		return new LocalValidatorFactoryBean();
 	}
 }

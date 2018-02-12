@@ -33,10 +33,10 @@ public class Initializer implements WebApplicationInitializer {
 		encodingFilter.setEncoding("UTF-8");
 		encodingFilter.setForceEncoding(true);
 		FilterRegistration.Dynamic encodingServlet = servletContext.addFilter("encodingFilter", encodingFilter);
-		encodingServlet.addMappingForUrlPatterns(null,true,"/*");
+		encodingServlet.addMappingForUrlPatterns(null, true, "/*");
 
 		FilterRegistration.Dynamic openEntityManagerInViewFilter = servletContext.addFilter("openEntityManagerInViewFilter", OpenEntityManagerInViewFilter.class);
-		openEntityManagerInViewFilter.setInitParameter("entityManagerFactoryBeanName","entityManagerFactory");
+		openEntityManagerInViewFilter.setInitParameter("entityManagerFactoryBeanName", "entityManagerFactory");
 		openEntityManagerInViewFilter.addMappingForUrlPatterns(null, false, "/*");
 	}
 }
