@@ -1,6 +1,5 @@
-package org.oneicy.dao;
+package org.oneicy.repository;
 
-import org.oneicy.entity.ExampleList;
 import org.oneicy.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

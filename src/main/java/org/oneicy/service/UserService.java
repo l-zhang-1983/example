@@ -1,8 +1,7 @@
 package org.oneicy.service;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-import org.oneicy.dao.OrganizationRepository;
-import org.oneicy.dao.UserRepository;
+import org.oneicy.repository.OrganizationRepository;
+import org.oneicy.repository.UserRepository;
 import org.oneicy.entity.Organization;
 import org.oneicy.entity.User;
 import org.slf4j.Logger;

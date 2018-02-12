@@ -1,8 +1,7 @@
-package org.oneicy.dao;
+package org.oneicy.repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 public class OrganizationRepositoryImpl implements OrganizationRepositoryCustomized {
 	@PersistenceContext

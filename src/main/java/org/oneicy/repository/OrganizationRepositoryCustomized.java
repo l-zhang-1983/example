@@ -1,6 +1,4 @@
-package org.oneicy.dao;
-
-import java.util.List;
+package org.oneicy.repository;
 
 public interface OrganizationRepositoryCustomized {
 }

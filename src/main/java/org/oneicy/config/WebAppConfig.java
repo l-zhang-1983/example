@@ -27,9 +27,7 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement(proxyTargetClass = true)
 @PropertySource("classpath:db.properties")
-@EnableJpaRepositories(basePackages = {"org.oneicy.dao"},
-		entityManagerFactoryRef = "entityManagerFactory",
-		transactionManagerRef = "transactionManager")
+@EnableJpaRepositories(basePackages = {"org.oneicy.repository"})
 @Import({MVCConfig.class})
 public class WebAppConfig {
 	private static final Logger LOG = LoggerFactory.getLogger(WebAppConfig.class);
@@ -108,7 +106,7 @@ public class WebAppConfig {
 		bean.setPackagesToScan(env.getRequiredProperty(P_ENTITYMANAGER_PACKAGES_TO_SCAN));
 		//b.setPersistenceUnitName("mysqldb");
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-		adapter.setShowSql(env.getRequiredProperty(P_HIBERNATE_SHOW_SQL,Boolean.class));
+		adapter.setShowSql(env.getRequiredProperty(P_HIBERNATE_SHOW_SQL, Boolean.class));
 		adapter.setDatabasePlatform(env.getRequiredProperty(P_HIBERNATE_DIALECT));
 		bean.setJpaVendorAdapter(adapter);
 		bean.setJpaProperties(jpaProperties());

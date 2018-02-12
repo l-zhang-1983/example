@@ -50,9 +50,9 @@ public class ExampleController {
 	}
 
 	public static void main(String[] args) throws JsonProcessingException {
-		List<Object> list = new ArrayList<Object>();
+		List<Object> list = new ArrayList<>();
 		list.add("中文");
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("key", "值值值");
 		list.add(map);
 

@@ -1,4 +1,4 @@
-package org.oneicy.dao;
+package org.oneicy.repository;
 
 import org.oneicy.entity.ExampleList;
 
