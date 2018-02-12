@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UsernameRealm extends AuthorizingRealm {
-	Logger logger = LoggerFactory.getLogger(UsernameRealm.class);
+public class UserNameRealm extends AuthorizingRealm {
+	Logger logger = LoggerFactory.getLogger(UserNameRealm.class);
 //	@Autowired
 //	private PermissionService permissionService;
 //	@Autowired

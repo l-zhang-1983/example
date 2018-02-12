@@ -26,5 +26,13 @@ http://blog.csdn.net/csdn13257081409/article/details/79036807
 - TomEE and Intellij  
 http://tomee.apache.org/tomee-and-intellij.html
 
+- HTTP Status 500 - Request processing failed; nested exception is org.apache.shiro.UnavailableSecurityManagerException: No SecurityManager accessible to the calling code, either bound to the org.apache.shiro.util.ThreadContext or as a vm static singleton. This is an invalid application configuration.  
+定义 MethodInvokingFactoryBean 静态方法注入  
+http://blog.csdn.net/huabenyue/article/details/52062684
+
+- 使 <aop:config proxy-target-class="true" /> 生效  
+不建议使用 DefaultAdvisorAutoProxyCreator
+而是使用注解 @EnableAspectJAutoProxy(proxyTargetClass = true)
+
 >TODO
 - Integrate [Apache Shiro](http://shiro.apache.org)

@@ -2,6 +2,7 @@ package org.oneicy.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.oneicy.entity.Organization;
 import org.oneicy.entity.User;
 import org.oneicy.service.UserService;
@@ -23,6 +24,7 @@ public class ExampleController {
 	@Autowired
 	private UserService userService = null;
 
+	@RequiresAuthentication
 	@ResponseBody
 	@RequestMapping("/entityExperiment/{query}")
 	public Collection<User> entityExperiment(@PathVariable("query") String query) {

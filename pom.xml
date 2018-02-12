@@ -121,8 +121,38 @@
 			<version>RELEASE</version>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-root</artifactId>
+			<version>RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>RELEASE</version>
+		</dependency>
+		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
+			<version>RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
 			<version>RELEASE</version>
 		</dependency>
 	</dependencies>

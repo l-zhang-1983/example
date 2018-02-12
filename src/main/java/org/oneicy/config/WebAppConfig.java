@@ -28,6 +28,7 @@ import java.util.Properties;
 @EnableTransactionManagement(proxyTargetClass = true)
 @PropertySource("classpath:db.properties")
 @EnableJpaRepositories(basePackages = {"org.oneicy.repository"})
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 @Import({MVCConfig.class})
 public class WebAppConfig {
 	private static final Logger LOG = LoggerFactory.getLogger(WebAppConfig.class);
@@ -104,7 +105,6 @@ public class WebAppConfig {
 		LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
 		bean.setDataSource(dataSource());
 		bean.setPackagesToScan(env.getRequiredProperty(P_ENTITYMANAGER_PACKAGES_TO_SCAN));
-		//b.setPersistenceUnitName("mysqldb");
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
 		adapter.setShowSql(env.getRequiredProperty(P_HIBERNATE_SHOW_SQL, Boolean.class));
 		adapter.setDatabasePlatform(env.getRequiredProperty(P_HIBERNATE_DIALECT));
@@ -142,7 +142,7 @@ public class WebAppConfig {
 	@Bean
 	public CommonsMultipartResolver multipartResolver(){
 		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-		resolver.setMaxUploadSize(104857600);
+		resolver.setMaxUploadSize(10 * 1024 * 1024);
 		return resolver;
 	}
 

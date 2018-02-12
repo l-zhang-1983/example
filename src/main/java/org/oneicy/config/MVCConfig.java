@@ -1,6 +1,14 @@
 package org.oneicy.config;
 
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -41,4 +49,5 @@ public class MVCConfig extends WebMvcConfigurationSupport {
 
 		super.configureMessageConverters(converters);
 	}
+
 }
