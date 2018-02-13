@@ -1,6 +1,10 @@
 package org.oneicy.config;
 
 
+import org.apache.shiro.authc.Authenticator;
+import org.apache.shiro.authc.pam.AbstractAuthenticationStrategy;
+import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
+import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
 import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
@@ -15,6 +19,7 @@ import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -60,14 +65,26 @@ public class ShiroConfig {
 		manager.setRealm(userNameRealm());
 		manager.setCacheManager(cacheManager());
 		manager.setSessionManager(defaultWebSessionManager());
+		manager.setAuthenticator(authenticator());
 		return manager;
+	}
+
+	@Bean(name = "authenticator")
+	public Authenticator authenticator() {
+		ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
+		AbstractAuthenticationStrategy strategy = new FirstSuccessfulStrategy();
+		authenticator.setAuthenticationStrategy(strategy);
+		return authenticator;
 	}
 
 	@Bean(name = "userNameRealm")
 	@DependsOn(value = "lifecycleBeanPostProcessor")
 	public UserNameRealm userNameRealm() {
 		UserNameRealm userNameRealm = new UserNameRealm();
+		userNameRealm.setCachingEnabled(true);
 		userNameRealm.setCacheManager(cacheManager());
+		userNameRealm.setAuthenticationCachingEnabled(true);
+		userNameRealm.setAuthorizationCachingEnabled(true);
 		return userNameRealm;
 	}
 

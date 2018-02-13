@@ -5,6 +5,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.IntrospectorCleanupListener;
 
@@ -31,6 +32,10 @@ public class Initializer implements WebApplicationInitializer {
 		encodingFilter.setForceEncoding(true);
 		FilterRegistration.Dynamic encodingServlet = servletContext.addFilter("encodingFilter", encodingFilter);
 		encodingServlet.addMappingForUrlPatterns(null, true, "/*");
+
+		FilterRegistration.Dynamic shiroFilter = servletContext.addFilter("shiroFilter", DelegatingFilterProxy.class);
+		shiroFilter.setInitParameter("targetFilterLifecycle", "true");
+		shiroFilter.addMappingForUrlPatterns(null, false, "/*");
 
 		FilterRegistration.Dynamic openEntityManagerInViewFilter = servletContext.addFilter("openEntityManagerInViewFilter", OpenEntityManagerInViewFilter.class);
 		openEntityManagerInViewFilter.setInitParameter("entityManagerFactoryBeanName", "entityManagerFactory");

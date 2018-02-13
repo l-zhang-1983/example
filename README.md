@@ -34,5 +34,8 @@ http://blog.csdn.net/huabenyue/article/details/52062684
 不建议使用 DefaultAdvisorAutoProxyCreator
 而是使用注解 @EnableAspectJAutoProxy(proxyTargetClass = true)
 
+- **resources 目录映射**  
+http://www.technicalkeeda.com/spring-tutorials/spring-4-mvc-static-resource-mapping-example
+
 >TODO
 - Integrate [Apache Shiro](http://shiro.apache.org)

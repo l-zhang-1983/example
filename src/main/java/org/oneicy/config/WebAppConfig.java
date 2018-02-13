@@ -32,38 +32,9 @@ import java.util.Properties;
 @PropertySource({"classpath:db.properties", "classpath:application.properties"})
 @EnableJpaRepositories(basePackages = {"org.oneicy.repository"})
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@Import({MVCConfig.class})
+@Import({MVCConfig.class, ShiroConfig.class})
 public class WebAppConfig {
 	private static final Logger LOGGER = LoggerFactory.getLogger(WebAppConfig.class);
-
-	private static final String P_DB_DRIVER = "jdbc.driver";
-	private static final String P_DB_PASSWORD = "jdbc.password";
-	private static final String P_DB_URL = "jdbc.url";
-	private static final String P_DB_USERNAME = "jdbc.username";
-
-	private static final String P_DB_MAX_ACTIVE = "db.maxActive";
-	private static final String P_DB_INIT_SIZE = "db.initialSize";
-	private static final String P_DB_MAX_WAIT = "db.maxWait";
-	private static final String P_DB_MIN_IDLE = "db.minIdle";
-	private static final String P_DB_TIME_BETWEEN_EVICTION_RUNS_MLIILIS = "db.timeBetweenEvictionRunsMillis";
-	private static final String P_DB_MIM_EVICTABLE_IDLE_TIME_MILLIS = "db.minEvictableIdleTimeMillis";
-	private static final String P_DB_VALIDATION_QUERY = "db.validationQuery";
-	private static final String P_DB_TEST_WHILE_IDLE = "db.testWhileIdle";
-	private static final String P_DB_TEST_ON_BORROW = "db.testOnBorrow";
-	private static final String P_DB_TEST_ON_RETURN = "db.testOnReturn";
-	private static final String P_DB_FILTERS = "db.filters";
-
-
-	private static final String P_HIBERNATE_DIALECT = "hibernate.dialect";
-	private static final String P_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
-	private static final String P_ENTITY_MANAGER_PACKAGES_TO_SCAN = "entity_manager.packages.to.scan";
-	private static final String P_HIBERNATE_MAX_FETCH_DEPTH = "hibernate.max_fetch_depth";
-	private static final String P_HIBERNATE_JDBC_FETCH_SIZE = "hibernate.jdbc.fetch_size";
-	private static final String P_HIBERNATE_JDBC_BATCH_SIZE = "hibernate.jdbc.batch_size";
-	private static final String P_HIBERNATE_FORMAT_SQL = "hibernate.format_sql";
-	private static final String P_HIBERNATE_CACHE_P_CLASS = "hibernate.cache.provider_class";
-	private static final String P_PERSISTENCE_VALI_MODE = "javax.persistence.validation.mode";
-	private static final String P_HIBERNATE_EJB_NAMING_STRATEGY = "hibernate.ejb.naming_strategy";
 
 	@Resource
 	private Environment env;
@@ -80,27 +51,27 @@ public class WebAppConfig {
 	@Bean
 	public DataSource dataSource() {
 		DruidDataSource dataSource = new DruidDataSource();
-		dataSource.setDriverClassName(env.getRequiredProperty(P_DB_DRIVER));
-		dataSource.setUrl(env.getRequiredProperty(P_DB_URL));
-		dataSource.setUsername(env.getRequiredProperty(P_DB_USERNAME));
-		dataSource.setPassword(env.getRequiredProperty(P_DB_PASSWORD));
+		dataSource.setDriverClassName(env.getRequiredProperty("jdbc.driver"));
+		dataSource.setUrl(env.getRequiredProperty("jdbc.url"));
+		dataSource.setUsername(env.getRequiredProperty("jdbc.username"));
+		dataSource.setPassword(env.getRequiredProperty("jdbc.password"));
 
-		dataSource.setMaxActive(env.getRequiredProperty(P_DB_MAX_ACTIVE, Integer.class));
-		dataSource.setInitialSize(env.getRequiredProperty(P_DB_INIT_SIZE, Integer.class));
-		dataSource.setMaxWait(env.getRequiredProperty(P_DB_MAX_WAIT, Integer.class));
-		dataSource.setMinIdle(env.getRequiredProperty(P_DB_MIN_IDLE, Integer.class));
-		dataSource.setTimeBetweenEvictionRunsMillis(env.getRequiredProperty(P_DB_TIME_BETWEEN_EVICTION_RUNS_MLIILIS, Integer.class));
-		dataSource.setMinEvictableIdleTimeMillis(env.getRequiredProperty(P_DB_MIM_EVICTABLE_IDLE_TIME_MILLIS, Long.class));
-		dataSource.setValidationQuery(env.getRequiredProperty(P_DB_VALIDATION_QUERY));
-		dataSource.setTestWhileIdle(env.getRequiredProperty(P_DB_TEST_WHILE_IDLE, Boolean.class));
-		dataSource.setTestOnBorrow(env.getRequiredProperty(P_DB_TEST_ON_BORROW, Boolean.class));
-		dataSource.setTestOnReturn(env.getRequiredProperty(P_DB_TEST_ON_RETURN, Boolean.class));
-
+		dataSource.setMaxActive(env.getRequiredProperty("db.maxActive", Integer.class));
+		dataSource.setInitialSize(env.getRequiredProperty("db.initialSize", Integer.class));
+		dataSource.setMaxWait(env.getRequiredProperty("db.maxWait", Integer.class));
+		dataSource.setMinIdle(env.getRequiredProperty("db.minIdle", Integer.class));
+		dataSource.setTimeBetweenEvictionRunsMillis(env.getRequiredProperty("db.timeBetweenEvictionRunsMillis", Integer.class));
+		dataSource.setMinEvictableIdleTimeMillis(env.getRequiredProperty("db.minEvictableIdleTimeMillis", Long.class));
+		dataSource.setValidationQuery(env.getRequiredProperty("db.validationQuery"));
+		dataSource.setTestWhileIdle(env.getRequiredProperty("db.testWhileIdle", Boolean.class));
+		dataSource.setTestOnBorrow(env.getRequiredProperty("db.testOnBorrow", Boolean.class));
+		dataSource.setTestOnReturn(env.getRequiredProperty("db.testOnReturn", Boolean.class));
 		try {
-			dataSource.setFilters(env.getRequiredProperty(P_DB_FILTERS));
+			dataSource.setFilters(env.getRequiredProperty("db.filters"));
 		} catch (SQLException e) {
-			LOGGER.error("Create DataSource filters failed.", e);
+			LOGGER.error("Error in setting filters: ", e);
 		}
+
 		return dataSource;
 	}
 
@@ -108,11 +79,11 @@ public class WebAppConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
 		bean.setDataSource(dataSource());
-		bean.setPackagesToScan(env.getRequiredProperty(P_ENTITY_MANAGER_PACKAGES_TO_SCAN));
+		bean.setPackagesToScan(env.getRequiredProperty("entity_manager.packages.to.scan"));
 		bean.setPersistenceUnitName(env.getProperty("jpa.persistenceUnitName"));
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-		adapter.setShowSql(env.getRequiredProperty(P_HIBERNATE_SHOW_SQL, Boolean.class));
-		adapter.setDatabasePlatform(env.getRequiredProperty(P_HIBERNATE_DIALECT));
+		adapter.setShowSql(env.getRequiredProperty("hibernate.show_sql", Boolean.class));
+		adapter.setDatabasePlatform(env.getRequiredProperty("hibernate.dialect"));
 		bean.setJpaVendorAdapter(adapter);
 		bean.setJpaProperties(jpaProperties());
 		return bean;
@@ -120,14 +91,14 @@ public class WebAppConfig {
 
 	private Properties jpaProperties() {
 		Properties prop = new Properties();
-		prop.put(P_HIBERNATE_MAX_FETCH_DEPTH, env.getRequiredProperty(P_HIBERNATE_MAX_FETCH_DEPTH, Integer.class));
-		prop.put(P_HIBERNATE_JDBC_FETCH_SIZE, env.getRequiredProperty(P_HIBERNATE_JDBC_FETCH_SIZE, Integer.class));
-		prop.put(P_HIBERNATE_JDBC_BATCH_SIZE, env.getRequiredProperty(P_HIBERNATE_JDBC_BATCH_SIZE, Integer.class));
-		prop.put(P_HIBERNATE_SHOW_SQL, env.getRequiredProperty(P_HIBERNATE_SHOW_SQL, Boolean.class));
-		prop.put(P_HIBERNATE_FORMAT_SQL, env.getRequiredProperty(P_HIBERNATE_FORMAT_SQL, Boolean.class));
-		prop.put(P_HIBERNATE_CACHE_P_CLASS, env.getRequiredProperty(P_HIBERNATE_CACHE_P_CLASS));
-		prop.put(P_PERSISTENCE_VALI_MODE, env.getRequiredProperty(P_PERSISTENCE_VALI_MODE));
-		prop.put(P_HIBERNATE_EJB_NAMING_STRATEGY, env.getRequiredProperty(P_HIBERNATE_EJB_NAMING_STRATEGY));
+		prop.put("hibernate.max_fetch_depth", env.getRequiredProperty("hibernate.max_fetch_depth", Integer.class));
+		prop.put("hibernate.jdbc.fetch_size", env.getRequiredProperty("hibernate.jdbc.fetch_size", Integer.class));
+		prop.put("hibernate.jdbc.batch_size", env.getRequiredProperty("hibernate.jdbc.batch_size", Integer.class));
+		prop.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql", Boolean.class));
+		prop.put("hibernate.format_sql", env.getRequiredProperty("hibernate.format_sql", Boolean.class));
+		prop.put("hibernate.cache.provider_class", env.getRequiredProperty("hibernate.cache.provider_class"));
+		prop.put("javax.persistence.validation.mode", env.getRequiredProperty("javax.persistence.validation.mode"));
+		prop.put("hibernate.ejb.naming_strategy", env.getRequiredProperty("hibernate.ejb.naming_strategy"));
 
 		return prop;
 	}
@@ -148,7 +119,9 @@ public class WebAppConfig {
 	public CommonsMultipartResolver multipartResolver() {
 		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
 		resolver.setDefaultEncoding(env.getRequiredProperty("project.encoding"));
-		resolver.setMaxUploadSize(10 * 1024 * 1024);
+		int fileSize = 10 * 1024 * 1024;
+		// 10MB
+		resolver.setMaxUploadSize(fileSize);
 		return resolver;
 	}
 
