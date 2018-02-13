@@ -42,9 +42,10 @@ public class ShiroConfig {
 		chains.put("/js/**", "anon");
 		chains.put("/resources/**", "anon");
 		chains.put("/resources/jsp/**", "ajax");
-		chains.put("/static/**", "anno");
+		chains.put("/static/**", "anon");
 		chains.put("/**", "ajax");
 		bean.setFilterChainDefinitionMap(chains);
+
 		return bean;
 	}
 
