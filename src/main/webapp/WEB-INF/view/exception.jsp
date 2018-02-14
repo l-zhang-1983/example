@@ -13,7 +13,6 @@
 </head>
 <body>
 Error Occurred~
-<%--${ex}--%>
 <p>
 exception: ${requestScope.exception.exceptionMessage}
 </p>

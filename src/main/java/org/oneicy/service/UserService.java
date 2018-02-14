@@ -16,11 +16,15 @@ public class UserService {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-	@Autowired
-	private OrganizationRepository organizationRepository;
+	private final OrganizationRepository organizationRepository;
+
+	private final UserRepository userRepository;
 
 	@Autowired
-	private UserRepository userRepository;
+	public UserService(OrganizationRepository organizationRepository, UserRepository userRepository) {
+		this.organizationRepository = organizationRepository;
+		this.userRepository = userRepository;
+	}
 
 	public Collection<User> getUserListBy(String query) {
 		return this.userRepository.getUsersByUserNameLike("%" + query + "%");
