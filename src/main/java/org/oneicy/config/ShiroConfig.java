@@ -19,7 +19,6 @@ import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.web.filter.DelegatingFilterProxy;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -41,6 +40,8 @@ public class ShiroConfig {
 
 		Map<String, String> chains = new HashMap<>();
 		chains.put("/login", "anon");
+		chains.put("/org/**", "anon");
+		chains.put("/index.jsp", "anon");
 		chains.put("/preLogin", "anon");
 		chains.put("/images/** ", "logout");
 		chains.put("/css/** ", "logout");

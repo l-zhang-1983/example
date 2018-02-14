@@ -150,6 +150,11 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>RELEASE</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>example</finalName>

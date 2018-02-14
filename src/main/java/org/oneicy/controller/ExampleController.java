@@ -24,14 +24,6 @@ public class ExampleController {
 	@Autowired
 	private UserService userService = null;
 
-	@RequiresAuthentication
-	@ResponseBody
-	@RequestMapping("/entityExperiment/{query}")
-	public Collection<User> entityExperiment(@PathVariable("query") String query) {
-		Collection<User> list = this.userService.getUserListBy(query);
-		return list;
-	}
-
 	@ResponseBody
 	@RequestMapping("/string/{query}")
 	public String string(@PathVariable("query") String query) throws JsonProcessingException {
@@ -41,6 +33,14 @@ public class ExampleController {
 		return json;
 	}
 
+	@ResponseBody
+	@RequestMapping("/entityExperiment/{query}")
+	public Collection<User> entityExperiment(@PathVariable("query") String query) {
+		Collection<User> list = this.userService.getUserListBy(query);
+		return list;
+	}
+
+	@RequiresAuthentication
 	@ResponseBody
 	@RequestMapping("/org/{query}")
 	public Collection<Organization> org(@PathVariable("query") String query) {

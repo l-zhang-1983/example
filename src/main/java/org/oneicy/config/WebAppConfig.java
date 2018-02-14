@@ -1,7 +1,7 @@
 package org.oneicy.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.oneicy.exception.SysSimpleMappingExceptionResolver;
+import org.oneicy.exception.CustomizedSimpleMappingExceptionResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.*;
@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
@@ -40,11 +42,10 @@ public class WebAppConfig {
 	private Environment env;
 
 	@Bean
-	public UrlBasedViewResolver setupViewResolver() {
-		UrlBasedViewResolver resolver = new UrlBasedViewResolver();
+	public ViewResolver viewResolver() {
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/view/");
 		resolver.setSuffix(".jsp");
-		resolver.setViewClass(JstlView.class);
 		return resolver;
 	}
 
@@ -132,9 +133,9 @@ public class WebAppConfig {
 
 	@Bean
 	public HandlerExceptionResolver handlerExceptionResolver() {
-		SysSimpleMappingExceptionResolver resolver = new SysSimpleMappingExceptionResolver();
+		CustomizedSimpleMappingExceptionResolver resolver = new CustomizedSimpleMappingExceptionResolver();
 		resolver.setDefaultErrorView("error");
-		resolver.setExceptionAttribute("ex");
+		resolver.setExceptionAttribute("exception");
 		Properties mappings = new Properties();
 		mappings.setProperty("java.lang.Exception", "exception");
 		resolver.setExceptionMappings(mappings);

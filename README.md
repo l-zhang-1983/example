@@ -37,5 +37,11 @@ http://blog.csdn.net/huabenyue/article/details/52062684
 - **resources 目录映射**  
 http://www.technicalkeeda.com/spring-tutorials/spring-4-mvc-static-resource-mapping-example
 
+- java.lang.NoClassDefFoundError: javax/servlet/jsp/jstl/core/Config  
+https://stackoverflow.com/questions/20268095/java-lang-noclassdeffounderror-javax-servlet-jsp-jstl-core-config
+
+- **使用EL表达式无法展示数据**  
+http://blog.csdn.net/Lynn_Lee_Java/article/details/53240961
+
 >TODO
 - Integrate [Apache Shiro](http://shiro.apache.org)
