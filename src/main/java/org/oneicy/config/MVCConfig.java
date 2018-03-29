@@ -2,6 +2,7 @@ package org.oneicy.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
@@ -19,24 +20,31 @@ public class MVCConfig extends WebMvcConfigurationSupport {
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 //		configurer.mediaType("json", MediaType.valueOf("application/json"));
 //		configurer.mediaType("xml", MediaType.valueOf("application/xml"));
-//		configurer.mediaType("html", MediaType.valueOf("text/html"));
-//		configurer.mediaType("*", MediaType.valueOf("*/*"));
+		configurer.mediaType("txt", MediaType.valueOf("text/plain"));
+		configurer.mediaType("*", MediaType.valueOf("*/*"));
 		super.configureContentNegotiation(configurer);
 	}
 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-		List<MediaType> supportedMediaTypes = new ArrayList<>();
-		supportedMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
-		supportedMediaTypes.add(MediaType.TEXT_PLAIN);
-		supportedMediaTypes.add(MediaType.TEXT_HTML);
+		List<MediaType> jsonMediaTypes = new ArrayList<>();
+		jsonMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+//		supportedMediaTypes.add(MediaType.TEXT_PLAIN);
+//		supportedMediaTypes.add(MediaType.TEXT_HTML);
 
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
 		converter.setObjectMapper(new HibernateAwareObjectMapper());
 		converter.setPrettyPrint(true);
-		converter.setSupportedMediaTypes(supportedMediaTypes);
+		converter.setSupportedMediaTypes(jsonMediaTypes);
 		converter.setDefaultCharset(Charset.forName("UTF-8"));
 		converters.add(converter);
+
+		ByteArrayHttpMessageConverter byteArrayHttpMessageConverter = new ByteArrayHttpMessageConverter();
+		List<MediaType> textMediaTypes = new ArrayList<>();
+		textMediaTypes.add(MediaType.TEXT_PLAIN);
+		textMediaTypes.add(MediaType.TEXT_HTML);
+		byteArrayHttpMessageConverter.setSupportedMediaTypes(textMediaTypes);
+		converters.add(byteArrayHttpMessageConverter);
 
 		super.configureMessageConverters(converters);
 	}
