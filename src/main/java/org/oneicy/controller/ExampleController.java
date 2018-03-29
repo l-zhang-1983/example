@@ -74,8 +74,7 @@ public class ExampleController {
 		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
 		headers.setPragma("no-cache");
 
-		ResponseEntity<byte[]> response = new ResponseEntity<>(("aaaaaa颠三倒四龙卷风" + System.lineSeparator() + "fdafsd都结束了单发").getBytes(Charset.forName("UTF-8")), headers, HttpStatus.CREATED);
-		return response;
+		return new ResponseEntity<>(("aaaaaa颠三倒四龙卷风" + System.lineSeparator() + "fdafsd都结束了单发").getBytes(Charset.forName("UTF-8")), headers, HttpStatus.CREATED);
 	}
 
 }
